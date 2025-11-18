@@ -15,7 +15,7 @@ export default function HowToDialog() {
         <div className="fixed inset-0 outline-0 flex w-screen items-center justify-center p-4 bg-stone-700/25">
           <DialogPanel className="max-w-lg rounded-md space-y-4 bg-white p-12">
             <DialogTitle className="font-bold">How To Play</DialogTitle>
-            <ul className="list-disc gap-6">
+            <ul className="list-disc gap-6 text-sm md:text-base">
                 <li>
                     Look at your current roll, it will be a random number between 1 and 6
                 </li>
