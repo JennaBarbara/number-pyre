@@ -203,8 +203,10 @@ export default function App() {
          <div className='flex flex-col items-center'>
           <Button onClick={() => resetGame()}>Reset Game</Button>
          </div>
-        <div className='bg-stone-50 p-5'>
-            <p>Credits: Number Pyre is an offshoot of <a className="underline" href="https://jennabarbara.github.io/number-pyle/">Number Pyle</a>, The rules and mechanics of which were invented by <a className="underline" href="https://lintilion.itch.io/">Lintilion</a></p>
+        <div className='flex flex-col bg-stone-50 p-5 gap-2'>
+            <p>Credits:</p>
+            <p> Number Pyre is a variant game mode of <a className="underline" href="https://jennabarbara.github.io/number-pyle/">Number Pyle</a>, with a mechanic to bank a roll.</p>
+            <p>The rules and mechanics of <a className="underline" href="https://jennabarbara.github.io/number-pyle/">Number Pyle</a> were invented by <a className="underline" href="https://lintilion.itch.io/">Lintilion</a></p>
             <p>This implementation is brought to you by <a className="underline" href="https://github.com/JennaBarbara/">JennaBarbara</a></p>
         </div>
       </div>
