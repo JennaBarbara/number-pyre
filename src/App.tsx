@@ -63,6 +63,7 @@ export default function App() {
         }
       }
       setSelectable(newRoll, lastPlacedLocation[0], lastPlacedLocation[1], newSquareStatuses)
+      setSquareStatuses(newSquareStatuses)
     }
 
     setBank(currentDie)
@@ -160,6 +161,7 @@ export default function App() {
       setSquareStatuses(newSquareStatuses)
       //roll new die
       setCurrentDie( newRoll )
+
 
     },
     [squareStatuses, setSquareStatuses, currentDie, setCurrentDie],
