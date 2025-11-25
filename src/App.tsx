@@ -8,26 +8,39 @@ import Bank from './components/bank.tsx';
 import HowToDialog from './components/how-to-dialog.tsx';
 import { useState, useCallback, useEffect } from 'react';
 import Score from './components/score.tsx';
-
-
-export interface SquareStatus {
-  number?: number,
-  scored: boolean,
-  selectable: boolean
-} 
+import { getStoredSquareStatus, setStoredSquareStatuses } from './utils/square-status-storage.tsx';
+import type { SquareStatus } from './utils/square-status.tsx';
+import { useCurrentDie } from './utils/use-current-die.tsx';
+import { rollDie } from './utils/rollDie.tsx';
+import { useHighScoreStorage } from './utils/use-high-score.tsx';
+import StatsDialog from './components/stats-dialog.tsx';
+import { useBankedDie } from './utils/use-banked-die.tsx';
 
 
 
 
 export default function App() {
 
- const [squareStatuses, setSquareStatuses ] = useState<Array<Array<SquareStatus>>>(getDefaultStatus)
- const [score, setScore] = useState(0)
+ const [squareStatuses, setSquareStatuses ] = useState<Array<Array<SquareStatus>>>(getStoredSquareStatus() ?? getDefaultStatus())
+ const [highScore, setHighScore] = useHighScoreStorage()
+ const [score, setScore] = useState<number>(0)
 
- const [currentDie, setCurrentDie] = useState(rollDie)
+ const [currentDie, setCurrentDie] = useCurrentDie()
  const [isGameOver, setIsGameOver] = useState(false)
- const [bank, setBank] = useState<undefined | number>(undefined)
+ const [bank, setBank] = useBankedDie()
  const [lastPlacedLocation, setLastPlacedLocation] =useState<undefined | Array<number>>(undefined)
+
+ //update status in local storage
+  useEffect(() => {
+    setStoredSquareStatuses(squareStatuses)
+  },[squareStatuses] )
+
+  //update high score
+  useEffect(()=>{
+    if(score > highScore){
+      setHighScore(score)
+    }
+  }, [score, highScore, setHighScore])
 
   //calculate score
   useEffect(() => {
@@ -47,7 +60,7 @@ export default function App() {
     setIsGameOver(gameOver)
   },[squareStatuses] )
 
-  const useBank = useCallback (() => {
+  const bankRoll = useCallback (() => {
 
      const newSquareStatuses= squareStatuses.map(function(row) {
         return row.slice();
@@ -179,14 +192,17 @@ export default function App() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-linear-to-t from-red-600 to-stone-400">
       <div className="flex flex-col min-h-screen w-full max-w-xl content-start py-10 px-10 bg-stone-50/50 gap-x-2 gap-y-4">
-       <HowToDialog />
+       <div className="flex flex-row justify-between pb-4 ">
+        <StatsDialog highScore={highScore} />
+        <HowToDialog />
+        </div>
         <Title />
         <div className='flex flex-row p-x-5 justify-center gap-8'>
           <Score score={score} />
           <Roll currentDie={currentDie} />
           <Bank 
             bank={bank} 
-            onClick={() => useBank()} />
+            onClick={() => bankRoll()} />
         </div>
         {isGameOver && <div className='flex flex-row p-x-5 justify-center gap-2 text-center'>
           <p className='text-5xl'>GAME OVER</p>
@@ -215,10 +231,6 @@ export default function App() {
     </div>
 
   )
-}
-
-function rollDie(): number {
-  return Math.floor(Math.random() * 6) + 1
 }
 
 function getDefaultStatus():  Array<Array<SquareStatus>> {
