@@ -7,6 +7,7 @@ import Roll from './components/roll.tsx';
 import Bank from './components/bank.tsx';
 import HowToDialog from './components/how-to-dialog.tsx';
 import ShareButton from './components/share-button.tsx';
+import GameModeSelect from './components/game-mode-select.tsx';
 import { useState, useCallback, useEffect } from 'react';
 import Score from './components/score.tsx';
 import { getStoredSquareStatus, setStoredSquareStatuses } from './utils/square-status-storage.tsx';
@@ -187,7 +188,7 @@ export default function App() {
       setLastPlacedLocation(undefined)
     
     },
-    [ setSquareStatuses, setCurrentDie],
+    [ setBank, setSquareStatuses, setCurrentDie],
   )
 
   return (
@@ -195,6 +196,7 @@ export default function App() {
       <div className="flex flex-col min-h-screen w-full max-w-xl content-start py-10 px-10 bg-stone-50/50 gap-x-2 gap-y-4">
        <div className="flex flex-row justify-between pb-4 ">
         <StatsDialog highScore={highScore} />
+        <GameModeSelect />
         <HowToDialog />
         </div>
         <Title />
