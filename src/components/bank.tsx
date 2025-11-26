@@ -6,11 +6,11 @@ export default function Bank({bank, onClick}:BankProps) {
 
 
     return (
-          <div className='flex flex-col text-center items-center gap-2'>
+          <div className='flex flex-col text-center items-center gap-2 w-md'>
                 <p className='text-lg sm:text-xl'>Banked Roll</p>
                <div 
                 onClick={onClick}
-                className={`cursor-pointer flex flex-col rounded-md bg-stone-200 justify-center gap-4 text-center text-lg size-8 md:size-16 md:text-2xl`}
+                className={`cursor-pointer flex flex-col rounded-md bg-blue-200 justify-center gap-4 text-center text-lg size-8 md:size-16 md:text-2xl`}
                 >
                     {bank}
                 </div>

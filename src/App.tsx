@@ -200,7 +200,7 @@ export default function App() {
         <HowToDialog />
         </div>
         <Title />
-        <div className='flex flex-row p-x-5 justify-center gap-8'>
+        <div className='flex flex-row justify-between'>
           <Score score={score} />
           <Roll currentDie={currentDie} />
           <Bank 
@@ -222,9 +222,9 @@ export default function App() {
                )       
             )))}
         </Board>
-         <div className='flex flex-col items-center'>
-          <Button onClick={() => resetGame()}>Reset Game</Button>
-         </div>
+        <div className='flex flex-col items-center'>
+        <Button onClick={() => resetGame()}>Reset Game</Button>
+        </div>
         <div className='flex flex-col bg-stone-50 p-5 gap-2'>
             <p>Credits:</p>
             <p> Number Pyre is a variant game mode of <a className="underline" href="https://jennabarbara.github.io/number-pyle/">Number Pyle</a>, with a mechanic to bank a roll.</p>
